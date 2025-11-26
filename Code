@@ -1,0 +1,90 @@
+def printf(string):
+    if not isinstance(string, str):
+        raise TypeError("Ошибка: вывод ожидается строка (printf)")
+    print(f"Вывод: {string}")
+
+
+def declination_minutes_safe(minutes):
+    if not isinstance(minutes, int):
+        raise TypeError("Входные данные для минут должны быть числами")
+        
+    if minutes == 0:
+        return "ровно"
+    elif minutes == 1:
+        return f"{minutes} минута"
+    elif 2 <= minutes <= 4:
+        return f"{minutes} минуты"
+    elif 5 <= minutes <= 59:
+        return f"{minutes} минут"
+    else:
+        raise ValueError("Неправильный формат ввода: минуты должны быть числом от 0 до 59")
+
+
+def daytime_safe(hours):
+    if not isinstance(hours, int):
+        raise TypeError("Входные данные для часов должны быть числами")
+    
+    if 1 <= hours <= 5:
+        return "ночи"
+    elif 6 <= hours <= 11:
+        return "утра"
+    elif 12 <= hours <= 18:
+        return "дня"
+    elif 19 <= hours <= 23:
+        return "вечера"
+    else:
+        return ""
+
+
+def main():
+    print("Программа преобразовывает два числа (часы и минуты) в текстовое описание времени суток.")
+    print("Введите два целых числа через пробел (часы и минуты):")
+    
+    try:
+        hours_str, minutes_str = input().split()
+        hours = int(hours_str)
+        minutes = int(minutes_str)
+
+        if not (0 <= hours <= 23):
+            raise ValueError("Неправильный формат ввода: часы должны быть числом от 0 до 23")
+        if not (0 <= minutes <= 59):
+            raise ValueError("Неправильный формат ввода: минуты должны быть числом от 0 до 59")
+
+        if hours == 0 and minutes == 0:
+            printf("полночь")
+            return 0
+        elif hours == 12 and minutes == 0:
+            printf("полдень")
+            return 0
+        
+        hours_of_day = [
+            "0 часов", "1 час", "2 часа", "3 часа", "4 часа", "5 часов", "6 часов",
+            "7 часов", "8 часов", "9 часов", "10 часов", "11 часов", "12 часов",
+            "1 час", "2 часа", "3 часа", "4 часа", "5 часов", "6 часов", 
+            "7 часов", "8 часов", "9 часов", "10 часов", "11 часов"
+        ]
+        
+        hours_string = hours_of_day[hours]
+        minutes_string = declination_minutes_safe(minutes)
+        daytime_string = daytime_safe(hours)
+        
+        final_output = f"{hours_string} {minutes_string} {daytime_string}".strip()
+        printf(final_output)
+
+    except ValueError as e:
+        print(f"Ошибка ввода данных: {e}")
+        return -1
+    except TypeError as e:
+        print(f"Ошибка типа данных: {e}")
+        return -1
+    except IndexError as e:
+        print(f"Внутренняя ошибка обработки часов: {e}")
+        return -1
+    except Exception as e:
+        print(f"Произошла непредвиденная ошибка: {e}")
+        return -1
+        
+    return 0
+    
+if(__name__ == "__main__"):
+    status = main()
