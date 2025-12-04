@@ -23,8 +23,7 @@ def declination_minutes_safe(minutes):
 def daytime_safe(hours):
     if not isinstance(hours, int):
         raise TypeError("Входные данные для часов должны быть числами")
-    
-    if 1 <= hours <= 5:
+    if 0 <= hours <= 5:
         return "ночи"
     elif 6 <= hours <= 11:
         return "утра"
@@ -32,9 +31,6 @@ def daytime_safe(hours):
         return "дня"
     elif 19 <= hours <= 23:
         return "вечера"
-    else:
-        return ""
-
 
 def main():
     print("Программа преобразовывает два числа (часы и минуты) в текстовое описание времени суток.")
