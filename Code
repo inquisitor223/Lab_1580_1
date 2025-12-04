@@ -64,7 +64,7 @@ def main():
         minutes_string = declination_minutes_safe(minutes)
         daytime_string = daytime_safe(hours)
         
-        final_output = (hours_string + minutes_string + daytime_string).strip()
+        final_output = f"({hours_string} {minutes_string} {daytime_string})".strip()
         printf(final_output)
 
     except ValueError as e:
