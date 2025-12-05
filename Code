@@ -27,9 +27,9 @@ def daytime_safe(hours):
         return "ночи"
     elif 6 <= hours <= 11:
         return "утра"
-    elif 12 <= hours <= 18:
+    elif 12 <= hours <= 17:
         return "дня"
-    elif 19 <= hours <= 23:
+    elif 18 <= hours <= 23:
         return "вечера"
 
 def main():
