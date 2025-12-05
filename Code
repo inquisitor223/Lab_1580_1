@@ -7,7 +7,6 @@ def printf(string):
 def declination_minutes_safe(minutes):
     if not isinstance(minutes, int):
         raise TypeError("Входные данные для минут должны быть числами")
-        
     if minutes == 0:
         return "ровно"
     elif minutes == 1:
@@ -32,12 +31,38 @@ def daytime_safe(hours):
     elif 18 <= hours <= 23:
         return "вечера"
 
+def isnumber(char):
+    if (ord('0') <= ord(char) <= ord('9')):
+        return True
+    return False
+
+def pars(string):
+    count_of_probel = 0
+    count_number = 0
+    buff = ""
+    string += " "
+    for i in range(len(string)):
+        if ((not isnumber(string[i]) and string[i] != ' ') or (string[i] == ' ' and count_of_probel > 1)):
+            raise ValueError("Неправильный формат ввода: введены недопустимые символы")
+        if (string[i] == ' '):
+            count_of_probel += 1
+        if (isnumber(string[i])):
+            count_number += 1
+            buff += string[i]
+        else:
+            if (count_number > 2 and buff[0] == '0'):
+                raise ValueError("Неправильный формат ввода: введено число начанающееся на ноль")
+            count_number = 0
+            buff = ""
+
 def main():
     print("Программа преобразовывает два числа (часы и минуты) в текстовое описание времени суток.")
     print("Введите два целых числа через пробел (часы и минуты):")
     
     try:
-        hours_str, minutes_str = input().split()
+        str_in = input()
+        pars(str_in)
+        hours_str, minutes_str = str_in.split()
         hours = int(hours_str)
         minutes = int(minutes_str)
 
@@ -63,8 +88,10 @@ def main():
         hours_string = hours_of_day[hours]
         minutes_string = declination_minutes_safe(minutes)
         daytime_string = daytime_safe(hours)
-        
-        final_output = f"({hours_string} {minutes_string} {daytime_string})".strip()
+        if (minutes_string == "ровно"):
+            final_output = f"({minutes_string} {hours_string} {daytime_string})".strip()
+        else:
+            final_output = f"({hours_string} {minutes_string} {daytime_string})".strip()
         printf(final_output)
 
     except ValueError as e:
