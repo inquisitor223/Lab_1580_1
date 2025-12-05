@@ -7,15 +7,15 @@ def printf(string):
 def declination_minutes_safe(minutes):
     if not isinstance(minutes, int):
         raise TypeError("Входные данные для минут должны быть числами")
-    if minutes == 0:
+    if (minutes == 0):
         return "ровно"
-    elif minutes == 1:
-        return f"{minutes} минута"
-    elif 2 <= minutes <= 4:
-        return f"{minutes} минуты"
-    elif 5 <= minutes <= 59:
+    elif (minutes//10 == 1 or not minutes%10):
         return f"{minutes} минут"
-    else:
+    elif (1 <= minutes%10 <= 4):
+        return f"{minutes} минуты"
+    elif (5 <= minutes%10 <= 9):
+        return f"{minutes} минут"
+    if (minutes > 59 or minutes < 0):
         raise ValueError("Неправильный формат ввода: минуты должны быть числом от 0 до 59")
 
 
@@ -108,6 +108,9 @@ def main():
         return -1
         
     return 0
+    
+if(__name__ == "__main__"):
+    status = main()
     
 if(__name__ == "__main__"):
     status = main()
