@@ -6,7 +6,7 @@ def printf(string):
 def declination_hours_safe(hours):
     if not isinstance(hours, int):
         raise TypeError("Входные данные для часов должны быть числами")
-    if (hours > 24 or hours < 0):
+    if (hours >= 24 or hours < 0):
         raise ValueError("Неправильный формат ввода: минуты должны быть числом от 0 до 59")
     hours %= 12
     if (hours == 0):
@@ -29,7 +29,7 @@ def declination_minutes_safe(minutes):
         return f"{minutes} минута"
     elif (2 <= minutes%10 < 5):
         return f"{minutes} минуты"
-    if (minutes > 59 or minutes < 0):
+    if (minutes >= 60 or minutes < 0):
         raise ValueError("Неправильный формат ввода: минуты должны быть числом от 0 до 59")
 
 
@@ -40,7 +40,7 @@ def daytime_safe(hours):
         return "ночи"
     elif (6 <= hours < 12):
         return "утра"
-    elif (12 <= hours < 17):
+    elif (12 <= hours < 18):
         return "дня"
     elif (18 <= hours < 24):
         return "вечера"
