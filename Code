@@ -43,6 +43,8 @@ def declination_hours_safe(hours):
         raise TypeError("Входные данные для часов должны быть числами")
     if (hours >= 24 or hours < 0):
         raise ValueError("Неправильный формат ввода: часы должны быть числом от 0 до 23")
+    if (hours == 12):
+         return "12 часов"
     hours %= 12
     if (hours == 0):
         return "0 часов"
